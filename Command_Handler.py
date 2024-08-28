@@ -1,7 +1,8 @@
-# Classes for Command Handling and the Parser for Input Strings
+"""
+A Module to handle the parsing of user input commands and the calling of the appropriate functions
+"""
 import Table
 import Robot
-
 
 def string_to_command_parser(input_string,robot,table):
     string_split = input_string.strip().split()
@@ -40,7 +41,8 @@ def string_to_command_parser(input_string,robot,table):
         print('Your available commands are:')
         print()
         print("PLACE X,Y,DIRECTION: Place the robot on the table at position x,y and facing direction")
-        print("\t\tChoose from the following directions: NORTH, EAST, SOUTH, WEST")
+        print()
+        print("\tChoose from the following directions: NORTH, EAST, SOUTH, WEST")
         print()
         print("MOVE: Move the robot one unit in the direction it is facing")
         print()
