@@ -30,8 +30,6 @@ def string_to_command_parser(input_string,robot,table):
             robot.turn(command_name)
     
     elif command_name == "REPORT":
-        if robot.robot_has_been_placed == False:
-            print("ERROR: Please place the robot first!")
         return robot.report(table)
     
     elif command_name == "EXIT":
@@ -54,3 +52,5 @@ def string_to_command_parser(input_string,robot,table):
         print()
         print("EXIT: Exit the program")
         
+    else:
+        print("ERROR: Please enter a valid command")

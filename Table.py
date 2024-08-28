@@ -5,13 +5,40 @@ Initialises a table object and provides methods to check for edges and a functio
 """
 
 class Table:
-    def __init__(self,table_x,table_y):
-        self.x = table_x
-        self.y = table_y
-        self.x_grid = list(range(table_x))
-        self.y_grid = list(range(table_y))
-        
+    def __init__(self):
+        self.x = self.ask_for_table_width()
+        self.y = self.ask_for_table_height()
+        self.x_grid = list(range(self.x))
+        self.y_grid = list(range(self.y))
     
+    def ask_for_table_width(self):
+        while True:
+            try:
+                x = int(input("Please enter the width of the table: "))
+                if x < 1:
+                    print("ERROR: Please enter a number greater than 0")
+                elif x > 10:
+                    print("ERROR: Please enter a number less than 11")
+                else:
+                    print(f'Table width is: {x}')
+                    return x
+            except:
+                print("ERROR: Please enter a valid number")
+    
+    def ask_for_table_height(self):
+        while True:
+            try:
+                y = int(input("Please enter the height of the table: "))
+                if y < 1:
+                    print("ERROR: Please enter a number greater than 0")
+                elif y > 10:
+                    print("ERROR: Please enter a number less than 11")
+                else:
+                    print(f'Table width is: {y}')
+                    return y
+            except:
+                print("ERROR: Please enter a valid number")    
+   
     def check_for_edge(self,direction,robot):
         if direction == "NORTH" and robot.y == self.y_grid[-1]:
             return True

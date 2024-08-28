@@ -7,8 +7,7 @@ def main():
     draw_art()
     welcome_message()
     new_robot = Robot.Robot()
-    new_table = Table.Table(int(input("How wide would you like your table? ")),                   
-                            int(input("How long would you like your table? ")))
+    new_table = Table.Table()
     show_table_and_help_message(new_table, new_robot)
     while True:
         try:

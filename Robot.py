@@ -69,5 +69,8 @@ class Robot:
         return direction
             
     def report(self,table):
-        print (f'{self.x},{self.y},{self.direction}')
+        if self.x or self.y or self.direction == None:
+            print('Robot not yet placed')
+        else:
+            print (f'{self.x},{self.y},{self.direction}')
         table.draw(self)
