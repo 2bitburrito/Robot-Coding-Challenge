@@ -1,44 +1,9 @@
 # Classes for Command Handling and the Parser for Input Strings
-import Classes
-
-class Command:
-    def execute(self,robot):
-        raise NotImplementedError("Subclass must implement abstract method")
-    
-class PlaceCommand(Command):
-    def __init__(self,x,y,direction):
-        self.x = x
-        self.y = y
-        self.direction = direction
-    
-    def execute(self,robot):
-        robot.place(self.x,self.y,self.direction)
-        
-class MoveCommand(Command):
-    def execute(self,robot):
-        robot.move()
-
-class TurnCommand(Command):
-    def __init__(self,new_direction):
-        self.new_direction = new_direction
-    
-    def execute(self,robot):
-        robot.turn(self.new_direction)
-        
-class ReportCommand(Command):
-    def execute(self,robot):
-        Classes.draw_table(robot,robot.table)
-        print(robot.report())
-        
-class RobotController:
-    def process(self,commands,robot):
-        for command in commands:
-            command.execute(robot)
+import Table
+import Robot
 
 
-
-
-def string_to_command_parser(input_string,robot):
+def string_to_command_parser(input_string,robot,table):
     string_split = input_string.strip().split()
     command_name = string_split[0].upper()
     
@@ -46,27 +11,27 @@ def string_to_command_parser(input_string,robot):
         try:
             x,y,f = string_split[1].split(',')
         except:
-            raise Exception('ERROR: Please ensure the PLACE command is in the correct format')
-        return PlaceCommand(int(x),int(y),f.upper())
+            print('ERROR: Please ensure the PLACE command is in the correct format')
+        robot.place(table,int(x),int(y),f.upper())
    
     elif command_name == "MOVE":
         if robot.robot_has_been_placed == False:
             print("ERROR: Please place the robot first!")
-        elif robot.table.check_for_edge(robot.direction,robot) == True:
+        elif table.check_for_edge(robot.direction,robot) == True:
             print("ERROR: Cannot move off the table")
         else:
-            return MoveCommand()
+            robot.move(table)
     
     elif command_name == "LEFT" or command_name == "RIGHT":
         if robot.robot_has_been_placed == False:
-            raise Exception("ERROR: Please place the robot first!")
+            print("ERROR: Please place the robot first!")
         else:
-            return TurnCommand(command_name)
+            robot.turn(command_name)
     
     elif command_name == "REPORT":
         if robot.robot_has_been_placed == False:
-            raise Exception("ERROR: Please place the robot first!")
-        return ReportCommand()
+            print("ERROR: Please place the robot first!")
+        return robot.report(table)
     
     elif command_name == "EXIT":
         return "EXIT"
@@ -87,6 +52,3 @@ def string_to_command_parser(input_string,robot):
         print()
         print("EXIT: Exit the program")
         
-    
-    else:
-        raise Exception(f'ERROR: Unrecognised command: {command_name}')
