@@ -1,6 +1,6 @@
-# SEEK Robot Challenge
+# Robot Challenge
 
-This is my attempt at the SEEK Robot challenge. 
+This is my attempt at the Robot challenge. 
 
 ## Installation
 
